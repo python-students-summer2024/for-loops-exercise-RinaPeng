@@ -7,20 +7,40 @@ Rather, call this function from main.py and run that file.
 """
 
 
+import random
+
 def guess_number(low, high, num_attempts):
     """
-    This function, named 'guess_number', generates a psudo-random integer in a given range, inclusive.
-    The user is given a certain number of attempts to guess the correct number.
-    The function prints the range to the user and informs the user of how many attempts they have.
-    The function asks the user to guess the number the given number of times.
-    You must use the random module's randint function to generate the pseudo-random integer.
-    You must use a for loop to give the user multiple attempts.
-    If the user enters a non-numeric response, the program must not crash, but simply count that as an incorrect answer.
-    If the user guesses any attempt correctly, the function immediately exits the loop and returns True.
-    If the user enters all attempts incorrectly, the function returns False.
+    This function generates a pseudo-random integer within a given inclusive range and allows the user a certain number
+    of attempts to guess it. It prints the range and number of attempts to the user, then asks for a guess repeatedly.
+    Non-numeric guesses are handled gracefully without crashing and count as incorrect guesses. If the user guesses
+    correctly at any attempt, the function returns True. If all guesses are incorrect, it returns False.
 
-    :param low: The low end of the range in which the pseudo-random number is generated.
-    :param high: the high end of the range in which the pseudo-random number is generated.
+    :param low: The lower bound of the range in which the pseudo-random number is generated.
+    :param high: The upper bound of the range in which the pseudo-random number is generated.
     :param num_attempts: The number of attempts the user is given to guess the correct number.
-    :returns: True if the user answers any attempt correctly, False otherwise.
+    :return: True if the user guesses correctly in any attempt, False otherwise.
     """
+    # Generate a random number within the given range
+    target_number = random.randint(low, high)
+
+    print(f"Guess the number between {low} and {high}. You have {num_attempts} attempts.")
+
+    # Loop through the number of allowed attempts
+    for attempt in range(num_attempts):
+        try:
+            # Get user input and attempt to convert it to an integer
+            guess = int(input(f"Attempt {attempt + 1}: Enter your guess: "))
+            # Check if the guess is correct
+            if guess == target_number:
+                print("Congratulations! You guessed the number correctly.")
+                return True
+            else:
+                print("Wrong guess. Try again!")
+        except ValueError:
+            # Handle non-numeric input
+            print("That's not a valid number. Please try to enter a valid number.")
+
+    # If no guesses were correct after all attempts, return False
+    print("Sorry, all your guesses were incorrect.")
+    return False

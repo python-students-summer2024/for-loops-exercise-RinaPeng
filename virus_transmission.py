@@ -9,11 +9,21 @@ Rather, call this function from main.py and run that file.
 
 def calculate_infections(starting_number_infections, reproduction_rate, num_days):
     """
-    Write a function that predicts the approximate number of infected individuals from a socially-transmitted viral infection after a given number of days.
-    Assume that, once infected, individuals stay infected indefinitely.
-    You must use a for loop to progressively calculate the number of infections each day until the target number of days is reached.
-
-    :param starting_number_infections: The number of infected individuals to begin with.
-    :param reproduction_rate: A floating point number indicating the rate of growth in the number of infections each day.
-    :returns: The new number of infected individuals after the given number of days, rounded to the nearest integer.
+    Predicts the number of infected individuals after a given number of days assuming exponential growth.
+    Each day, the number of infections increases by a factor determined by the reproduction rate.
+    
+    :param starting_number_infections: The initial number of infected individuals.
+    :param reproduction_rate: The daily multiplication factor for new infections.
+    :param num_days: The total number of days to simulate.
+    :return: The estimated number of infected individuals at the end of the simulation, rounded to the nearest integer.
     """
+    current_infections = starting_number_infections
+
+    # Loop through each day to calculate the progression of the infection
+    for _ in range(num_days):
+        current_infections *= reproduction_rate
+
+    # Return the total number of infections rounded to the nearest integer
+    return round(current_infections)
+
+
